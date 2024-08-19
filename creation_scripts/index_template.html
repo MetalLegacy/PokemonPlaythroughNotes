@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pokemon Marathon Notes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+    <script src="script.js"></script>
+    <meta charset="utf-8">
+</head>
+
+<body spellcheck="false">
+    <div id="table" class="table">
+        <div id="headers" class="row header">
+            <div id="empty"></div>
+            <div id="game-header" class="cell">
+                Game
+                <svg class="dropdown-triangle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke="none" d="M 0,0 H 24 V 24 H 0 Z" fill="none" />
+                    <path d="M 20.118,3 H 3.893 A 2.914,2.914 0 0 0 1.39,7.371 L 9.506,20.92 a 2.917,2.917 0 0 0 4.987,0.005 L 22.603,7.386 A 2.914,2.914 0 0 0 20.117,3 Z" />
+                </svg>
+                <div id="visibility-toggles" class="dropdown interactable hide">
+                    <!--Toggles-->
+                </div>
+            </div>
+            <div id="gameplay-header" class="cell">Gameplay</div>
+            <div id="story-header" class="cell">Story</div>
+            <div id="region-header" class="cell">Region</div>
+            <div id="visuals-header" class="cell">Visuals</div>
+            <div id="music-header" class="cell">Music</div>
+            <div id="pros-cons-header" class="proscons">
+                <div id="pros-header" class="cell">Pros</div>
+                <div id="cons-header" class="cell">Cons</div>
+            </div>
+            <div id="general-header" class="cell">General</div>
+            <div id="team-header" class="cell">
+                Team
+                <svg class="dropdown-triangle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke="none" d="M 0,0 H 24 V 24 H 0 Z" fill="none" />
+                    <path d="M 20.118,3 H 3.893 A 2.914,2.914 0 0 0 1.39,7.371 L 9.506,20.92 a 2.917,2.917 0 0 0 4.987,0.005 L 22.603,7.386 A 2.914,2.914 0 0 0 20.117,3 Z" />
+                </svg>
+                <div id="team-stats" class="dropdown interactable hide">
+                    <div id="gen-stats" class="stat-wrapper">
+                        <div class="stat-heading">
+                            Mons Per Gen
+                        </div>
+                        <div id="gen-counts" class="count-wrapper">
+                            <div id="gen-1" class="stat-count">
+                                <img src="images/generations/kanto.jpg" draggable="false" alt="kanto" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-2" class="stat-count">
+                                <img src="images/generations/johto.jpg" draggable="false" alt="johto" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-3" class="stat-count">
+                                <img src="images/generations/hoenn.jpg" draggable="false" alt="hoenn" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-4" class="stat-count">
+                                <img src="images/generations/sinnoh.jpg" draggable="false" alt="sinnoh" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-5" class="stat-count">
+                                <img src="images/generations/unova.jpg" draggable="false" alt="unova" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-6" class="stat-count">
+                                <img src="images/generations/kalos.jpg" draggable="false" alt="kalos" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-7" class="stat-count">
+                                <img src="images/generations/alola.jpg" draggable="false" alt="alola" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-8" class="stat-count">
+                                <img src="images/generations/galar.jpg" draggable="false" alt="galar" loading="lazy">
+                                0
+                            </div>
+                            <div id="gen-9" class="stat-count">
+                                <img src="images/generations/paldea.jpg" draggable="false" alt="paldea" loading="lazy">
+                                0
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-spacer"></div>
+                    <div id="type-stats" class="stat-wrapper">
+                        <div class="stat-heading">
+                            Mons Per Type
+                        </div>
+                        <div id="type-counts" class="count-wrapper">
+                            <div id="normal" class="stat-count">
+                                <img src="images/types/normal.png" draggable="false" alt="normal type" loading="lazy">
+                                0
+                            </div>
+                            <div id="fire" class="stat-count">
+                                <img src="images/types/fire.png" draggable="false" alt="fire type" loading="lazy">
+                                0
+                            </div>
+                            <div id="water" class="stat-count">
+                                <img src="images/types/water.png" draggable="false" alt="water type" loading="lazy">
+                                0
+                            </div>
+                            <div id="grass" class="stat-count">
+                                <img src="images/types/grass.png" draggable="false" alt="grass type" loading="lazy">
+                                0
+                            </div>
+                            <div id="electric" class="stat-count">
+                                <img src="images/types/electric.png" draggable="false" alt="electric type" loading="lazy">
+                                0
+                            </div>
+                            <div id="ice" class="stat-count">
+                                <img src="images/types/ice.png" draggable="false" alt="ice type" loading="lazy">
+                                0
+                            </div>
+                            <div id="fighting" class="stat-count">
+                                <img src="images/types/fighting.png" draggable="false" alt="fighting type" loading="lazy">
+                                0
+                            </div>
+                            <div id="poison" class="stat-count">
+                                <img src="images/types/poison.png" draggable="false" alt="poison type" loading="lazy">
+                                0
+                            </div>
+                            <div id="ground" class="stat-count">
+                                <img src="images/types/ground.png" draggable="false" alt="ground type" loading="lazy">
+                                0
+                            </div>
+                            <div id="flying" class="stat-count">
+                                <img src="images/types/flying.png" draggable="false" alt="flying type" loading="lazy">
+                                0
+                            </div>
+                            <div id="psychic" class="stat-count">
+                                <img src="images/types/psychic.png" draggable="false" alt="psychic type" loading="lazy">
+                                0
+                            </div>
+                            <div id="bug" class="stat-count">
+                                <img src="images/types/bug.png" draggable="false" alt="bug type" loading="lazy">
+                                0
+                            </div>
+                            <div id="rock" class="stat-count">
+                                <img src="images/types/rock.png" draggable="false" alt="rock type" loading="lazy">
+                                0
+                            </div>
+                            <div id="ghost" class="stat-count">
+                                <img src="images/types/ghost.png" draggable="false" alt="ghost type" loading="lazy">
+                                0
+                            </div>
+                            <div id="dragon" class="stat-count">
+                                <img src="images/types/dragon.png" draggable="false" alt="dragon type" loading="lazy">
+                                0
+                            </div>
+                            <div id="dark" class="stat-count">
+                                <img src="images/types/dark.png" draggable="false" alt="dark type" loading="lazy">
+                                0
+                            </div>
+                            <div id="steel" class="stat-count">
+                                <img src="images/types/steel.png" draggable="false" alt="steel type" loading="lazy">
+                                0
+                            </div>
+                            <div id="fairy" class="stat-count">
+                                <img src="images/types/fairy.png" draggable="false" alt="fairy type" loading="lazy">
+                                0
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-spacer"></div>
+                    <div id="shiny-stats" class="stat-wrapper">
+                        <div class="stat-heading">
+                            Number Of Shinies
+                        </div>
+                        <div id="shinies" class="stat-count">
+                            <img src="images/buttons/MakeShiny.png" draggable="false"  alt="shiny charm" loading="lazy">
+                            0
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="time-header" class="cell">
+                Time
+                <br>
+                0:00
+            </div>
+        </div>
+        <ul id="rows" class="rows">
+            <!--Rows-->
+        </ul>
+    </div>
+    <div id="pokedex" class="dropdown pokedex interactable hide">
+        <div class="pokedex-header">
+            <!--this wrapper exists so the arrow itself can be hidden without losing its place in the grid-->
+            <div class="back-arrow-wrapper">
+                <svg id="back-arrow" class="outline-svg invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5 12 l14 0" />
+                    <path d="M11 18 L4 12 l7 -6" />
+                </svg>
+            </div>
+            <div class="search-wrapper">
+                <svg id="search-icon" class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                    <path d="M21 21l-6 -6" />
+                </svg>
+                <input type="text" id="pokedex-search" class="pokedex-search" placeholder="Search...">
+                <svg id="clear-search" class="outline-svg invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M18 6l-12 12" />
+                    <path d="M6 6l12 12" />
+                </svg>
+            </div>
+        </div>
+        <!--Pokedex-->
+    </div>
+</body>
+
+</html>

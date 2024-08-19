@@ -1,0 +1,452 @@
+body,
+body * {
+    box-sizing: border-box;
+    position: relative;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    transition: opacity 0.33s linear;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body {
+    margin: revert;
+    font-size: 18px;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+#loading-screen {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-content: center;
+    font-size: 32px;
+}
+
+.loader-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+}
+
+.loader {
+    border: 16px solid lightgray;
+    /* Light grey */
+    border-top: 16px solid gray;
+    /* Blue */
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.0625fr) repeat(8, minmax(0, 1fr)) minmax(0, 6fr) minmax(0, 0.5fr);
+}
+
+.header {
+    font-weight: bold;
+}
+
+#game-header,
+#team-header {
+    cursor: pointer;
+}
+
+.cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
+    outline: 1px solid black;
+    min-height: 1em;
+    min-width: 100%;
+    background-color: white;
+}
+
+.dropdown-triangle {
+    height: 100%;
+    fill: gray;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5px;
+    height: calc(1em - 2px);
+}
+
+#visibility-toggles {
+    cursor: initial;
+    flex-wrap: wrap;
+    width: calc(100% - 1px);
+    align-items: center;
+}
+
+.visibility-toggle {
+    width: 40%;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.visibility-toggle img {
+    width: 87.5%;
+}
+
+#team-stats {
+    width: calc(100% - 1px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: initial;
+    gap: 5px;
+}
+
+.stat-wrapper {
+    cursor: initial;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.count-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.stat-count {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+#team-stats img {
+    cursor: initial;
+}
+
+#type-counts img,
+#gen-counts img {
+    padding: 10%;
+}
+
+.stat-spacer {
+    background-color: black;
+    height: 3px;
+    width: 95%;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.game {
+    background-size: 150% 150%;
+    cursor: pointer;
+}
+
+.game-filter {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(5px) brightness(66%);
+}
+
+.overall {
+    height: 100%;
+}
+
+.proscons {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.member {
+    display: flex;
+    outline: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+}
+
+.non-grid-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100%;
+    position: relative;
+    outline: 1px solid black;
+}
+
+.one-liner {
+    height: 1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.notes {
+    min-height: 1em;
+    height: 100%;
+}
+
+.interactable {
+    background-color: gray;
+    outline: 1px solid black;
+    border-radius: 10px;
+}
+
+.dragger {
+    border-radius: 10px 0px 0px 10px;
+    cursor: grab;
+}
+
+.dragger:active {
+    cursor: grabbing;
+}
+
+.circle-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.drag-circle {
+    background-color: lightgray;
+    border-radius: 50%;
+}
+
+.member-buttons {
+    width: calc(100% - 1px);
+    position: absolute;
+    height: 25%;
+    top: 1px;
+}
+
+.member-button {
+    border-radius: 50%;
+    margin: 1px;
+    height: 100%;
+    opacity: 0%;
+    position: absolute;
+    aspect-ratio: 1 / 1;
+}
+
+.member:hover .member-button {
+    opacity: 50%;
+}
+
+.member .member-button:hover {
+    opacity: 100%;
+}
+
+.shiny {
+    left: 1px;
+}
+
+.make-shiny {
+    background-image: url("images/buttons/MakeShiny.png");
+}
+
+.remove-shiny {
+    background-image: url("images/buttons/RemoveShiny.png");
+}
+
+.repel {
+    right: 1px;
+    background-image: url("images/buttons/Repel.png");
+}
+
+img {
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: flex;
+    z-index: 5;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+.game-select img {
+    margin: 5px;
+}
+
+.pokedex {
+    width: 100%;
+    display: initial;
+    overflow: hidden;
+    position: absolute;
+}
+
+.pokedex-header {
+    width: 100%;
+    height: 1.5em;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 8fr) minmax(0, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.outline-svg {
+    stroke: black;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    z-index: 10;
+}
+
+.back-arrow-wrapper {
+    display: flex;
+    height: inherit;
+    align-items: center;
+    justify-content: center;
+}
+
+#back-arrow {
+    left: -2.5px;
+    height: 150%;
+    cursor: pointer;
+}
+
+.search-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+#search-icon {
+    height: 1.25em;
+    stroke: gray;
+    left: 5px;
+}
+
+.pokedex-search {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    margin: 0px 5px;
+}
+
+.pokedex-search:focus {
+    outline: none;
+}
+
+.pokedex-search:focus::placeholder {
+    color: transparent;
+}
+
+#clear-search {
+    height: 1.25em;
+    cursor: pointer;
+    right: 5px;
+}
+
+.mon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: lightgray gray;
+    scrollbar-gutter: stable both-edges;
+    margin-top: 5px;
+}
+
+.mon-container img {
+    width: calc((87 / 510) * 100%);
+    height: fit-content;
+}
+
+.egg .member {
+    background-image: url("images/pokemon/0-egg.png");
+}
+
+.selected-member::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: inherit;
+    filter: brightness(50%);
+}
+
+.selected-member::after {
+    background: white;
+}
+
+.selected-game {
+    filter: brightness(50%);
+}
+
+.egg .member-buttons {
+    display: none;
+}
+
+.egg .nickname,
+.egg .notes {
+    pointer-events: none;
+}
+
+/* THESE ALWAYS NEEDS TO BE AT THE BOTTOM SO THEY OVERWRITE ANY OTHER VALUE */
+.typo {
+    background-color: lightsalmon;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: red;
+}
+
+/* removes elements entirely so they pop in and out of existence and don't impact other elements */
+.hide {
+    display: none;
+}
+
+/* visually changes elements so they fade in and out */
+.invisible {
+    opacity: 0;
+    pointer-events: none;
+}
