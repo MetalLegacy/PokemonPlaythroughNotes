@@ -129,6 +129,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 5px;
+    width: 100%;
 }
 
 .count-wrapper {
@@ -136,6 +137,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .stat-count {
@@ -146,6 +148,10 @@ body {
 
 #team-stats img {
     cursor: initial;
+}
+
+#team-stats div div div {
+    width: 10%;
 }
 
 #type-counts img,
