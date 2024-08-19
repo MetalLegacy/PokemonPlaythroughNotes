@@ -438,6 +438,13 @@ img {
     pointer-events: none;
 }
 
+#scroll-lock {
+    height: calc(1.5em + 20px);
+    width: 100%;
+    background-color: white;
+    z-index: -5;
+}
+
 /* THESE ALWAYS NEEDS TO BE AT THE BOTTOM SO THEY OVERWRITE ANY OTHER VALUE */
 .typo {
     background-color: lightsalmon;

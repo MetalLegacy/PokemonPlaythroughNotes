@@ -25,14 +25,10 @@ async function pageSetup() {
 }
 
 function doneLoading() {
-    let body = document.querySelector("body");
-    body.classList.remove("no-scroll");
-    body.querySelector("#loading-screen").classList.add("invisible");
+    document.body.querySelector("#loading-screen").classList.add("invisible");
 }
 
 function addEventListeners() {
-    windowEvents();
-
     document.querySelectorAll(".game").forEach(game => {
         game.addEventListener("click", openGameSelect);
     });
@@ -77,18 +73,23 @@ function addEventListeners() {
     gameHeader.querySelector("#visibility-toggles").addEventListener("click", handleVisibilityClick);
 
     document.getElementById("team-header").addEventListener("click", openHeaderDropdown);
+
+    windowEvents();
 }
 
 function windowEvents() {
     // true ensures this triggers before all other events
     window.addEventListener("click", closeDropdown, true);
 
-    resizeListeners();
-
     dragAndDropRows();
+
+    resizeListeners();
 }
 
 function resizeListeners() {
+    // removing no scroll has to be done here so the resize actually accounts for the slighty shrunk width of the page once the scroll bar appears
+    document.body.classList.remove("no-scroll");
+
     window.addEventListener("resize", resizeGameSelects);
     window.addEventListener("resize", resizeDraggerCircles);
     window.addEventListener("resize", resizePokedex);
@@ -154,17 +155,20 @@ function resizeDraggerCircles() {
 }
 
 function resizePokedex() {
-    let teamWidth = document.getElementById("team-header").clientWidth;
+    let teamWidth = document.querySelector("#team-header").clientWidth;
 
-    let pokedex = document.getElementById("pokedex");
+    let pokedex = document.querySelector("#pokedex");
     positionPokedex(pokedex);
-    pokedex.style.maxWidth = teamWidth + "px";
+    pokedex.style.maxWidth = (teamWidth - 1) + "px";
 
     let memberSize = document.querySelector(".member").clientWidth;
+    let newHeight = memberSize * 4;
 
     pokedex.querySelectorAll(".mon-container").forEach(container => {
-        container.style.maxHeight = (memberSize * 4) + "px";
+        container.style.maxHeight = newHeight + "px";
     });
+
+    document.querySelector("#scroll-lock").style.height = "calc(1.5em + " + newHeight + "px)";
 }
 
 function dragAndDropRows() {
@@ -394,14 +398,15 @@ function openPokedex(event) {
     positionPokedex(pokedex);
     pokedex.classList.remove("hide");
     openDropdown = pokedex;
+    pokedex.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function positionPokedex(pokedex) {
-    try {
-        let team = document.getElementById("team-header");
-        pokedex.style.top = (Math.floor(selectedMember.getBoundingClientRect().bottom) - 7) + "px";
+    if (selectedMember !== null) {
+        let team = document.querySelector("#team-header");
+        pokedex.style.top = (selectedMember.getBoundingClientRect().bottom + window.scrollY - 8) + "px";
         pokedex.style.left = team.offsetLeft + "px";
-    } catch (err) { }
+    }
 }
 
 function clearMonContainerStack() {
