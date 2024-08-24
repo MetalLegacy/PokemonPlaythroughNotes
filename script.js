@@ -21,11 +21,15 @@ const forceClose = { target: { closest: function () { return null; } } };
 async function pageSetup() {
     await loadSaveData();
     addEventListeners();
-    doneLoading();
+    await doneLoading();
+
+    document.querySelectorAll("#all-mons img").forEach(img => {
+        img.removeAttribute("loading");
+    });
 }
 
-function doneLoading() {
-    document.body.querySelector("#loading-screen").classList.add("invisible");
+async function doneLoading() {
+    document.querySelector("#loading-screen").classList.add("invisible");
 }
 
 function addEventListeners() {
@@ -275,6 +279,7 @@ function openGameSelect(event) {
     positionGameSelect(gameSelect);
     gameSelect.classList.remove("hide");
     openDropdown = gameSelect;
+    gameSelect.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function positionGameSelect(gameSelect) {
@@ -396,7 +401,9 @@ function openPokedex(event) {
     allMons.classList.remove("hide");
 
     positionPokedex(pokedex);
+
     pokedex.classList.remove("hide");
+    pokedex.querySelector("#all-mons").scrollTop = 0;
     openDropdown = pokedex;
     pokedex.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
@@ -517,6 +524,7 @@ function openHeaderDropdown(event) {
 
     openDropdown = dropdown;
     dropdown.classList.remove("hide");
+    dropdown.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function preventNewLine(event) {
